@@ -1,6 +1,5 @@
 package by.it.group410901.lishchinets.lesson04;
 
-
 import org.junit.Test;
 
 import java.io.InputStream;

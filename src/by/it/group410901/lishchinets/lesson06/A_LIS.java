@@ -3,6 +3,7 @@ package by.it.group410901.lishchinets.lesson06;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
+import java.util.Arrays;
 
 /*
 Задача на программирование: наибольшая возрастающая подпоследовательность
@@ -31,7 +32,6 @@ import java.util.Scanner;
 
 public class A_LIS {
 
-
     public static void main(String[] args) throws FileNotFoundException {
         InputStream stream = A_LIS.class.getResourceAsStream("dataA.txt");
         A_LIS instance = new A_LIS();
@@ -50,7 +50,26 @@ public class A_LIS {
         for (int i = 0; i < n; i++) {
             m[i] = scanner.nextInt();
         }
+
+        // Массив dp, где dp[i] — длина наибольшей возрастающей подпоследовательности, заканчивающейся на i-ом элементе
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1); // каждая подпоследовательность минимальной длины равна 1
+
+        // Рассчитываем длины LIS для всех индексов
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (m[j] < m[i]) { // если текущий элемент больше предыдущего
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
+
+        // Максимальная длина LIS
         int result = 0;
+        for (int length : dp) {
+            result = Math.max(result, length);
+        }
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
